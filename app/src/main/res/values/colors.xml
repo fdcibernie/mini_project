@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="orangePrimary">#ffa500</color>
+    <color name="orangeTint1">#ffae19</color>
+    <color name="seedColor">#073a67</color>
+    <color name="primaryColor">#1f4d76</color>
+    <color name="secondaryColot">#6a88a3</color>
+</resources>

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1025961518472",
+    "firebase_url": "https://consumer-bill-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "consumer-bill",
+    "storage_bucket": "consumer-bill.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025961518472:android:a57dd381985bcf63afc63d",
+        "android_client_info": {
+          "package_name": "com.example.consumerbill"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6gQ1Cj_4t3r7J6o7NSyyvXHBYnfrbjJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
