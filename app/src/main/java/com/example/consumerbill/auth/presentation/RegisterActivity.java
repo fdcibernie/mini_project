@@ -23,13 +23,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class RegisterActivity extends AppCompatActivity implements ITextValidation {
-    private static final int EMAIL_ID = 0;
-    private static final int PASSWORD_ID = 1;
+    static final int EMAIL_ID = 0;
+    static final int PASSWORD_ID = 1;
     private static final int CONFIRM_PASSWORD_ID = 2;
     public static final String TAG = "RegisterActivity";
     private ActivityRegisterBinding layout;
     private EditText txtEmail,txtPassword,txtConfirmPassword;
-    private Button btnRegister;
     private TextView tvExit;
     private ValidateEmail validateEmail;
     private ValidatePassword validatePassword,validateConfirmPassword;
@@ -95,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity implements ITextValidati
     }
 
     private void observeUserRegistration() {
-        authViewModel.getCreateUserResponse().observe(this, apiResult -> {
+        authViewModel.getAuthResponse().observe(this, apiResult -> {
             runOnUiThread(() -> {
                 appLoader.dismissLoader();
             });

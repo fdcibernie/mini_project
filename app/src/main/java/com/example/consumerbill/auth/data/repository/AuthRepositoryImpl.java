@@ -29,4 +29,9 @@ public class AuthRepositoryImpl implements IAuthRepository {
     public void createAccount(String email, String password, FirebaseAuth firebaseAuth, IAuthTaskListener observer) {
         authRemoteSrc.createAccount(email,password,firebaseAuth,observer);
     }
+
+    @Override
+    public void signIn(String email, String password, FirebaseAuth firebaseAuth, IAuthTaskListener observer) {
+        authRemoteSrc.signIn(email, password, firebaseAuth, observer);
+    }
 }

@@ -6,4 +6,5 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public interface IAuthRepository {
     void createAccount(String email, String password, FirebaseAuth firebaseAuth, IAuthTaskListener observer);
+    void signIn(String email, String password, FirebaseAuth firebaseAuth, IAuthTaskListener observer);
 }

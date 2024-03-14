@@ -40,4 +40,25 @@ public class AuthRemoteSrcImpl implements  IAuthRemoteSrc{
             observer.onCompleteTask(new ApiResult<>(null, ResponseStatus.ERROR,"Something went wrong, please try again."));
         }
     }
+
+    @Override
+    public void signIn(String email, String password, FirebaseAuth firebaseAuth, IAuthTaskListener observer) {
+        try {
+            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                if ((task.isSuccessful())) {
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    assert user != null;
+                    if(user.isEmailVerified()) {
+                        observer.onCompleteTask(new ApiResult<>(null, ResponseStatus.SUCCESS, "Login Successful"));
+                    }else{
+                        observer.onCompleteTask(new ApiResult<>(null, ResponseStatus.ERROR, "Please check your email to verify your account using the link."));
+                    }
+                } else {
+                    observer.onCompleteTask(new ApiResult<>(null, ResponseStatus.ERROR, "Failed to register, please try again"));
+                }
+            });
+        } catch (Exception e) {
+            observer.onCompleteTask(new ApiResult<>(null, ResponseStatus.ERROR,"Something went wrong, please try again."));
+        }
+    }
 }
