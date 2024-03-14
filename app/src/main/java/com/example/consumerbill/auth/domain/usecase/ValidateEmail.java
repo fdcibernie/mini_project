@@ -10,25 +10,23 @@ import com.example.consumerbill.cores.interfaces.ITextValidation;
 public class ValidateEmail extends ValidationClass {
     private static ValidateEmail instance = null;
     private ITextValidation callback;
-    private final View view;
 
-    public ValidateEmail(ITextValidation callback,View view) {
+    public ValidateEmail(ITextValidation callback) {
         super();
-        this.view = view;
         this.callback = callback;
     }
 
-    public static ValidateEmail getInstance(ITextValidation callback,View view) {
+    public static ValidateEmail getInstance(ITextValidation callback) {
         if(instance == null) {
-            instance = new ValidateEmail(callback,view);
+            instance = new ValidateEmail(callback);
         }
         return instance;
     }
 
     @Override
-    public void checkText(String text) {
+    public void checkText(int id,String text) {
         if(text.isEmpty()) {
-            callback.textReviewResult(view,"Please provide email address.",true);
+            callback.textReviewResult(id,"Please provide email address.",true);
             return;
         }
 
@@ -36,10 +34,10 @@ public class ValidateEmail extends ValidationClass {
         //email.contains(emailPattern)
         Log.e("RegisterActivity","email: "+ text);
         if(!Patterns.EMAIL_ADDRESS.matcher(text).matches()) {
-            callback.textReviewResult(view,"Email is invalid.",true);
+            callback.textReviewResult(id,"Email is invalid.",true);
             return;
         }
 
-        callback.textReviewResult(view,"Good",false);
+        callback.textReviewResult(id,"Good",false);
     }
 }

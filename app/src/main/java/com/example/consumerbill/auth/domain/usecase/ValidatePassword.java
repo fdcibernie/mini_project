@@ -9,45 +9,43 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ValidatePassword extends ValidationClass {
-    private View view;
-    private ITextValidation callback;
     private static ValidatePassword instance = null;
+    private ITextValidation callback;
 
-    public static ValidatePassword getInstance(ITextValidation callback,View view) {
+    public static ValidatePassword getInstance(ITextValidation callback) {
         if (instance == null) {
-            instance = new ValidatePassword(callback, view);
+            instance = new ValidatePassword(callback);
         }
 
         return instance;
     }
 
-    public ValidatePassword(ITextValidation callback,View view) {
+    public ValidatePassword(ITextValidation callback) {
         super();
-        this.view = view;
         this.callback = callback;
     }
 
     @Override
-    public void checkText(String text) {
-        String passwordPattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\\\S+$).{4,}$";
+    public void checkText(int id,String text) {
+        String passwordPattern = "^(?=.*[@#$%^&+=])(?=\\S+$).{4,}$";
         Pattern pattern = Pattern.compile(passwordPattern);
         Matcher matcher = pattern.matcher(text);
 
         if(text.isEmpty()) {
-            callback.textReviewResult(view,"Please provide password.",true);
+            callback.textReviewResult(id,"Please provide password.",true);
             return;
         }
 
         if(text.length() < 8) {
-            callback.textReviewResult(view,"Password should be 8 characters.",true);
+            callback.textReviewResult(id,"Password should be 8 characters.",true);
             return;
         }
 
         if(!matcher.matches()) {
-            callback.textReviewResult(view,"Password should contain at least 1 number, capital letter, and special characters.",true);
+            callback.textReviewResult(id,"Password should contain at least 1 number, capital letter, and special characters.",true);
             return;
         }
 
-        callback.textReviewResult(view,"Good",false);
+        callback.textReviewResult(id,"Good",false);
     }
 }

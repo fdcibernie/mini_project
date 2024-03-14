@@ -45,6 +45,7 @@ dependencies {
     implementation libs.firebase.analytics
     implementation libs.google.firebase.database
     implementation libs.firebase.auth
+    implementation libs.android.gif
 
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
