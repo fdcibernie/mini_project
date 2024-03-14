@@ -1,4 +1,4 @@
-package com.example.consumerbill.auth.domain;
+package com.example.consumerbill.auth.domain.repository;
 
 import com.example.consumerbill.cores.ApiResult;
 import com.google.firebase.auth.FirebaseAuth;

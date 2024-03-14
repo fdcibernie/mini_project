@@ -29,7 +29,7 @@
         android:id="@+id/tv_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email Address *"
+        android:text="@string/email_address"
         android:layout_marginStart="24dp"
         android:layout_marginTop="40dp"
         app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -53,7 +53,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:inputType="textEmailAddress"
             android:fontFamily="@font/lato_bold"
             android:drawableStart="@drawable/ic_email"
@@ -101,13 +101,14 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/login"
+        android:background="@color/orangePrimary"
         android:fontFamily="@font/lato_bold"
+        android:text="@string/login"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:background="@color/orangePrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_password" />
 
     <TextView

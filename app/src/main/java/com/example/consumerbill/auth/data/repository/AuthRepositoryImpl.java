@@ -1,7 +1,7 @@
 package com.example.consumerbill.auth.data.repository;
 
 import com.example.consumerbill.auth.data.datasource.remote.AuthRemoteSrcImpl;
-import com.example.consumerbill.auth.domain.IAuthRepository;
+import com.example.consumerbill.auth.domain.repository.IAuthRepository;
 import com.example.consumerbill.cores.ApiResult;
 import com.google.firebase.auth.FirebaseAuth;
 
