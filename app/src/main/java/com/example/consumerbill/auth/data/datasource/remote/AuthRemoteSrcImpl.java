@@ -17,7 +17,7 @@ public class AuthRemoteSrcImpl implements  IAuthRemoteSrc{
     private static AuthRemoteSrcImpl INSTANCE = null;
 
     public AuthRemoteSrcImpl() {}
-    public static AuthRemoteSrcImpl getInstance() {
+    public static synchronized AuthRemoteSrcImpl getInstance() {
         if(INSTANCE == null) {
             INSTANCE = new AuthRemoteSrcImpl();
         }

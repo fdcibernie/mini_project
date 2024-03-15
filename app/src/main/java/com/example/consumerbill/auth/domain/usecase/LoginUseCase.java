@@ -12,7 +12,7 @@ public class LoginUseCase {
         repository = AuthRepositoryImpl.getInstance();
     }
 
-    public static LoginUseCase getInstance() {
+    public static synchronized LoginUseCase getInstance() {
         if(instance == null) {
             instance = new LoginUseCase();
         }

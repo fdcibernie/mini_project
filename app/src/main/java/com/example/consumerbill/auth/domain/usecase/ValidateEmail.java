@@ -16,7 +16,7 @@ public class ValidateEmail extends ValidationClass {
         this.callback = callback;
     }
 
-    public static ValidateEmail getInstance(ITextValidation callback) {
+    public static synchronized ValidateEmail getInstance(ITextValidation callback) {
         if(instance == null) {
             instance = new ValidateEmail(callback);
         }
@@ -30,9 +30,6 @@ public class ValidateEmail extends ValidationClass {
             return;
         }
 
-        //String emailPattern = "[]&{}<>?/:;'~";
-        //email.contains(emailPattern)
-        Log.e("RegisterActivity","email: "+ text);
         if(!Patterns.EMAIL_ADDRESS.matcher(text).matches()) {
             callback.textReviewResult(id,"Email is invalid.",true);
             return;

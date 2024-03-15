@@ -17,7 +17,7 @@ public class AuthRepositoryImpl implements IAuthRepository {
         authRemoteSrc = AuthRemoteSrcImpl.getInstance();
     }
 
-    public static AuthRepositoryImpl getInstance() {
+    public static synchronized  AuthRepositoryImpl getInstance() {
         if(INSTANCE == null) {
             INSTANCE = new AuthRepositoryImpl();
         }

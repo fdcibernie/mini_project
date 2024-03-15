@@ -12,6 +12,7 @@ googleServices = "4.4.1"
 firebaseDatabase = "20.3.1"
 firebaseAuth = "22.3.1"
 androidGif = "1.2.19"
+volleyVersion = "1.2.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -27,6 +28,7 @@ google-services = { group = "com.google.gms", name = "google-services", version.
 google-firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 android-gif = { group = "pl.droidsonroids.gif", name = "android-gif-drawable",version.ref = "androidGif"}
+volley = { group = "com.android.volley", name = "volley", version.ref = "volleyVersion"}
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 

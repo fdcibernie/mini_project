@@ -10,10 +10,11 @@ import com.example.consumerbill.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class AppLoader {
-    private Context context;
-    private Resources resources;
+    private final Context context;
+    private final Resources resources;
     private AlertDialog alertDialog;
 
+    @SuppressLint("StaticFieldLeak")
     private static AppLoader instance = null;
     public AppLoader(Context context, Resources resources) {
         this.context = context;

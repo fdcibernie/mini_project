@@ -12,7 +12,7 @@ public class ValidatePassword extends ValidationClass {
     private static ValidatePassword instance = null;
     private ITextValidation callback;
 
-    public static ValidatePassword getInstance(ITextValidation callback) {
+    public static synchronized ValidatePassword getInstance(ITextValidation callback) {
         if (instance == null) {
             instance = new ValidatePassword(callback);
         }

@@ -16,7 +16,7 @@ public class RegisterUserUseCase {
         repository = AuthRepositoryImpl.getInstance();
     }
 
-    public static RegisterUserUseCase getInstance() {
+    public static synchronized RegisterUserUseCase getInstance() {
         if(instance == null) {
             instance = new RegisterUserUseCase();
         }
