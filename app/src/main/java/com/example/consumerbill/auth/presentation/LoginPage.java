@@ -29,7 +29,6 @@ import com.example.consumerbill.cores.MySharedPreferences;
 import com.example.consumerbill.cores.ResponseStatus;
 import com.example.consumerbill.cores.interfaces.ITextValidation;
 import com.example.consumerbill.cores.views.AppLoader;
-import com.example.consumerbill.cores.views.MessageDialog;
 import com.example.consumerbill.databinding.ActivityLoginPageBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
