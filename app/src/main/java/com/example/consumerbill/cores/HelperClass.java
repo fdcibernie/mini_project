@@ -7,9 +7,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class HelperClass {
+public class HelperClass<T> {
     public HelperClass() {
     }
 
-    public void deserializeJsonObject(JSONObject data, IApiListener<ArrayList<Billers>> apiListener){}
+    //public void deserializeJsonObject(JSONObject data, IApiListener<ArrayList<Billers>> apiListener){}
+    public ArrayList<T> deserializeJsonObjectType(JSONObject data){
+        return null;
+    }
 }

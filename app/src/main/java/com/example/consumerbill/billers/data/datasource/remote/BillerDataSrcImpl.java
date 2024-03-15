@@ -43,9 +43,9 @@ public class BillerDataSrcImpl implements IBillersDataSrc{
         DeserializeBillerResponse deserializeBillerResponse = DeserializeBillerResponse.getInstance();
         String url = ConstRef.FIREBASE_DOMAIN + "/billers.json";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url, null, jsonObject -> {
-            deserializeBillerResponse.deserializeJsonObject(jsonObject,apiListener);
+            ArrayList<Billers> list = deserializeBillerResponse.deserializeJsonObjectType(jsonObject);
+            apiListener.onApiResponse(new ApiResult<>(list, ResponseStatus.SUCCESS,""));
         }, volleyError -> {
-            Log.e(TAG, "response-error: "+ volleyError.getMessage());
             apiListener.onApiResponse(new ApiResult<>(null, ResponseStatus.SUCCESS,""));
         });
 

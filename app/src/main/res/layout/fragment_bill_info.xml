@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".bill_info.presentation.BillInfoFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/primaryColor"
+        app:layout_constraintBaseline_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/layout_main_bg_color" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+<TextView
+    android:id="@+id/lbl_account_no"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="24dp"
+    android:layout_marginTop="32dp"
+    android:fontFamily="@font/lato"
+    android:text="Account No:"
+    android:textSize="17sp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/app_bar" />
+
+<TextView
+    android:id="@+id/tv_account_no"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:fontFamily="@font/lato_bold"
+    android:text="0000"
+    android:textSize="17sp"
+    app:layout_constraintBottom_toBottomOf="@+id/lbl_account_no"
+    app:layout_constraintStart_toEndOf="@+id/lbl_account_no"
+    app:layout_constraintTop_toTopOf="@+id/lbl_account_no" />
+
+
+<TextView
+    android:id="@+id/lbl_account_name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:fontFamily="@font/lato"
+    android:text="Account Name:"
+    android:textSize="17sp"
+    app:layout_constraintStart_toStartOf="@+id/lbl_account_no"
+    app:layout_constraintTop_toBottomOf="@+id/lbl_account_no" />
+
+<TextView
+    android:id="@+id/tv_account_name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:fontFamily="@font/lato_bold"
+    android:text="Consumer name"
+    android:textSize="17sp"
+    app:layout_constraintBottom_toBottomOf="@+id/lbl_account_name"
+    app:layout_constraintStart_toEndOf="@+id/lbl_account_name"
+    app:layout_constraintTop_toTopOf="@+id/lbl_account_name" />
+
+<TextView
+    android:id="@+id/lbl_billamount"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:fontFamily="@font/lato"
+    android:text="Bill Amount:"
+    android:textSize="17sp"
+    app:layout_constraintStart_toStartOf="@+id/lbl_account_name"
+    app:layout_constraintTop_toBottomOf="@+id/lbl_account_name" />
+<TextView
+    android:id="@+id/tv_bill_amount"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:fontFamily="@font/lato_bold"
+    android:text="100.3"
+    android:textSize="17sp"
+    app:layout_constraintBottom_toBottomOf="@+id/lbl_billamount"
+    app:layout_constraintStart_toEndOf="@+id/lbl_billamount"
+    app:layout_constraintTop_toTopOf="@+id/lbl_billamount" />
+
+<TextView
+    android:id="@+id/lbl_duedate"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:fontFamily="@font/lato"
+    android:text="Due Date:"
+    android:textSize="17sp"
+    app:layout_constraintStart_toStartOf="@+id/lbl_billamount"
+    app:layout_constraintTop_toBottomOf="@+id/lbl_billamount" />
+
+<TextView
+    android:id="@+id/tv_due_date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:fontFamily="@font/lato_bold"
+    android:text="March 21,2024"
+    android:textSize="17sp"
+    app:layout_constraintBottom_toBottomOf="@+id/lbl_duedate"
+    app:layout_constraintStart_toEndOf="@+id/lbl_duedate"
+    app:layout_constraintTop_toTopOf="@+id/lbl_duedate" />
+
+<TextView
+    android:id="@+id/lbl_penalty"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:fontFamily="@font/lato"
+    android:text="Penalty:"
+    android:textSize="17sp"
+    app:layout_constraintStart_toStartOf="@+id/lbl_duedate"
+    app:layout_constraintTop_toBottomOf="@+id/lbl_duedate" />
+
+<TextView
+    android:id="@+id/tv_penalty"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:fontFamily="@font/lato_bold"
+    android:text="0.0"
+    android:textSize="17sp"
+    app:layout_constraintBottom_toBottomOf="@+id/lbl_penalty"
+    app:layout_constraintStart_toEndOf="@+id/lbl_penalty"
+    app:layout_constraintTop_toTopOf="@+id/lbl_penalty" />
+
+<TextView
+    android:id="@+id/lbl_total_amount"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:fontFamily="@font/lato"
+    android:text="Total Amount to Pay:"
+    android:textColor="@color/orangePrimary"
+    android:textSize="18sp"
+    android:textStyle="italic"
+    app:layout_constraintStart_toStartOf="@+id/lbl_penalty"
+    app:layout_constraintTop_toBottomOf="@+id/lbl_penalty" />
+
+<TextView
+    android:id="@+id/tv_total_amount"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:fontFamily="@font/lato_bold"
+    android:text="0.0"
+    android:paddingEnd="2dp"
+    android:textSize="18sp"
+    android:textStyle="italic"
+    android:textColor="@color/orangePrimary"
+    app:layout_constraintBottom_toBottomOf="@+id/lbl_total_amount"
+    app:layout_constraintStart_toEndOf="@+id/lbl_total_amount"
+    app:layout_constraintTop_toTopOf="@+id/lbl_total_amount" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.example.consumerbill.billers.presentation;
 
+import static com.example.consumerbill.bill_info.presentation.CustomerBillFragment.ARG_BILLER_ID;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
@@ -7,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.consumerbill.R;
+import com.example.consumerbill.bill_info.presentation.CustomerBillFragment;
 import com.example.consumerbill.billers.domain.model.Billers;
 import com.example.consumerbill.billers.presentation.adapters.BillerAdapter;
 import com.example.consumerbill.billers.presentation.viewmodel.BillerViewModel;
@@ -104,8 +109,25 @@ public class BillersFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         adapter.setUpAdapter(list, biller -> {
-
+            goToCustomerBill(biller.getBillerCode());
         });
+    }
+
+    private void goToCustomerBill(String billerCode) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_BILLER_ID,billerCode);
+        FragmentManager manager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction()
+                .setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,   // popEnter
+                        R.anim.slide_out  // popExit
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.main_container, CustomerBillFragment.class,bundle)
+                .addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     private void observeBillersData() {
