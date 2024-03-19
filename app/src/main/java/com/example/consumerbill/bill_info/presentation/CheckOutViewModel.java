@@ -8,7 +8,11 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.consumerbill.bill_info.domain.usecase.UpdateBillStatus;
+import com.example.consumerbill.cores.ApiResult;
+import com.example.consumerbill.cores.interfaces.IAppItemListener;
 import com.example.consumerbill.cores.payment_util.PaymentsUtil;
+import com.example.consumerbill.cores.volley.VolleySingleton;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.wallet.IsReadyToPayRequest;
 import com.google.android.gms.wallet.PaymentData;
@@ -22,14 +26,20 @@ import java.util.Objects;
 public class CheckOutViewModel extends AndroidViewModel {
     // A client for interacting with the Google Pay API.
     private final PaymentsClient paymentsClient;
+    private UpdateBillStatus updateBillStatusUseCase;
 
     // LiveData with the result of whether the user can pay using Google Pay
     private final MutableLiveData<Boolean> _canUseGooglePay = new MutableLiveData<>();
+    private final MutableLiveData<ApiResult<Void>> _updateBillStatus = new MutableLiveData<>();
 
     public final LiveData<Boolean> canUseGooglePay = _canUseGooglePay;
+    public final LiveData<ApiResult<Void>> updateBillStatus = _updateBillStatus;
+
+
     public CheckOutViewModel(@NonNull Application application) {
         super(application);
         paymentsClient = PaymentsUtil.createPaymentsClient(application);
+        updateBillStatusUseCase = UpdateBillStatus.getInstance();
 
         fetchCanUseGooglePay();
     }
@@ -66,5 +76,9 @@ public class CheckOutViewModel extends AndroidViewModel {
         PaymentDataRequest request =
                 PaymentDataRequest.fromJson(paymentDataRequestJson.toString());
         return paymentsClient.loadPaymentData(request);
+    }
+
+    public void updatePaymentStatus(VolleySingleton volleySingleton, String key) {
+        updateBillStatusUseCase.updatePaymentStatus(volleySingleton, key, _updateBillStatus::setValue);
     }
 }

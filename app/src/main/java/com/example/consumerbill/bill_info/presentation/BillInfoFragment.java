@@ -32,6 +32,7 @@ import com.example.consumerbill.bill_info.domain.model.ConsumerBill;
 import com.example.consumerbill.bill_info.domain.usecase.NumberFormat;
 import com.example.consumerbill.cores.payment_util.PaymentsUtil;
 import com.example.consumerbill.cores.views.AppLoader;
+import com.example.consumerbill.cores.volley.VolleySingleton;
 import com.example.consumerbill.databinding.FragmentBillInfoBinding;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -67,6 +68,7 @@ public class BillInfoFragment extends Fragment {
     private AppCompatButton btnClose;
     private CheckOutViewModel checkOutViewModel;
     private AlertDialog alertDialog;
+    private VolleySingleton volleySingleton;
 
     ActivityResultLauncher<IntentSenderRequest> resolvePaymentForResult = registerForActivityResult(
             new ActivityResultContracts.StartIntentSenderForResult(),
@@ -135,6 +137,7 @@ public class BillInfoFragment extends Fragment {
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         checkOutViewModel = new ViewModelProvider(this).get(CheckOutViewModel.class);
+        volleySingleton = VolleySingleton.getInstance(requireActivity());
 
         payButton = layout.googlePayPaymentButton;
         btnClose = layout.btnClose;
@@ -274,6 +277,7 @@ public class BillInfoFragment extends Fragment {
             Log.e("GooglePaytoken", paymentMethodData
                     .getJSONObject("tokenizationData")
                     .getString("token"));
+            updateBillStatus();
 
             //paymentMethodData:{"description":"Visa •••• 4323","info":
             // {"billingAddress":{"address1":"Pooc Talisay","address2":"","address3":"",
@@ -292,6 +296,6 @@ public class BillInfoFragment extends Fragment {
         });
     }
     private void updateBillStatus() {
-
+        checkOutViewModel.updatePaymentStatus(volleySingleton,billInfo.getKeys());
     }
 }
