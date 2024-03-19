@@ -35,20 +35,22 @@ public class DeserializeConsumerBill extends HelperClass<ConsumerBill> {
         ArrayList<ConsumerBill> listBiller = new ArrayList<>();
         while (iterator.hasNext()) {
             try {
-                JSONObject jsonObject = data.getJSONObject(iterator.next());
+                String keys = iterator.next();
+                JSONObject jsonObject = data.getJSONObject(keys);
                 ConsumerBill consumerBill = new ConsumerModel(
-                        jsonObject.getString(" account_no"),
+                        jsonObject.getString("account_no"),
                         jsonObject.getString("address"),
                         jsonObject.getDouble("bill_amount"),
                         jsonObject.getDouble("bill_penalty"),
                         jsonObject.getString("biller"),
-                        jsonObject.getString("consumption"),
+                        jsonObject.optString("consumption","0"),
                         jsonObject.getString("contact_num"),
                         jsonObject.getString("due_date"),
                         jsonObject.getString("name"),
-                        jsonObject.getString("payment_status"),
-                        jsonObject.getString("present_reading"),
-                        jsonObject.getString("prev_reading")
+                        jsonObject.optString("payment_status","0"),
+                        jsonObject.optString("present_reading","0"),
+                        jsonObject.optString("prev_reading","0"),
+                        keys
                 );
                 listBiller.add(consumerBill);
             } catch (JSONException e) {

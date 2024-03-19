@@ -27,6 +27,7 @@ import com.example.consumerbill.bill_info.presentation.adapter.CustomerAdapter;
 import com.example.consumerbill.cores.ApiResult;
 import com.example.consumerbill.cores.ResponseStatus;
 import com.example.consumerbill.cores.interfaces.IAppItemListener;
+import com.example.consumerbill.cores.views.AppLoader;
 import com.example.consumerbill.cores.volley.VolleySingleton;
 import com.example.consumerbill.databinding.FragmentCustomerBillBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -37,7 +38,8 @@ import java.util.Objects;
 
 public class CustomerBillFragment extends Fragment {
     public static final String ARG_BILLER_ID = "biller_id";
-    private String billerId;
+    public static final String ARG_BILLER_NAME = "biller_name";
+    private String billerId,billerName;
     private String queryText;
     private FragmentCustomerBillBinding layout;
     private BillInfoViewModel viewModel;
@@ -51,6 +53,7 @@ public class CustomerBillFragment extends Fragment {
         CustomerBillFragment fragment = new CustomerBillFragment();
         Bundle args = new Bundle();
         args.putString(ARG_BILLER_ID, param1);
+        args.putString(ARG_BILLER_NAME, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,7 +63,7 @@ public class CustomerBillFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             billerId = getArguments().getString(ARG_BILLER_ID);
-            Log.e("CustomerBill","billercode:"+billerId);
+            billerName = getArguments().getString(ARG_BILLER_NAME);
         }
     }
 
@@ -81,6 +84,9 @@ public class CustomerBillFragment extends Fragment {
         ((AppCompatActivity) requireActivity()).setSupportActionBar(layout.toolbar);
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("Customer");
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        layout.tvBillerName.setText(billerName);
+
         createDialog();
         popFragment();
         onSearchView();
@@ -105,12 +111,14 @@ public class CustomerBillFragment extends Fragment {
 
     private void createDialog(){
         @SuppressLint("UseCompatLoadingForDrawables")
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity())
-                .setView(R.layout.app_loader)
-                .setCancelable(false)
-                .setBackground(getResources().getDrawable(R.color.white,null));
-
-        alertDialog = builder.create();
+//        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity())
+//                .setView(R.layout.app_loader)
+//                .setCancelable(false)
+//                .setBackground(getResources().getDrawable(R.color.white,null));
+//
+//        alertDialog = builder.create();
+        AppLoader appLoader = new AppLoader(requireActivity(),getResources());
+        alertDialog = appLoader.getBuilder().create();
     }
 
     private void onSearchView() {

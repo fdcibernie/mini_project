@@ -8,13 +8,15 @@ public class Billers extends BillerModel {
     private final String billerName;
     private final String billerStatus;
     private final String billerType;
-    public Billers(String billerCode, String billerCompleteName, String billerName, String billerStatus, String billerType) {
+    private final int billerImage;
+    public Billers(String billerCode, String billerCompleteName, String billerName, String billerStatus, String billerType,int billerImage) {
         super();
         this.billerCode = billerCode;
         this.billerCompleteName = billerCompleteName;
         this.billerName = billerName;
         this.billerStatus = billerStatus;
         this.billerType = billerType;
+        this.billerImage = billerImage;
     }
 
     @Override
@@ -40,5 +42,10 @@ public class Billers extends BillerModel {
     @Override
     public String getBillerType() {
         return billerType;
+    }
+
+    @Override
+    public int getBillerImage() {
+        return billerImage;
     }
 }

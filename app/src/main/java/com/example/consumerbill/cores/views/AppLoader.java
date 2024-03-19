@@ -13,6 +13,7 @@ public class AppLoader {
     private final Context context;
     private final Resources resources;
     private AlertDialog alertDialog;
+    MaterialAlertDialogBuilder builder;
 
     @SuppressLint("StaticFieldLeak")
     private static AppLoader instance = null;
@@ -29,9 +30,9 @@ public class AppLoader {
         return instance;
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void createDialog() {
-        @SuppressLint("UseCompatLoadingForDrawables")
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context)
+       builder = new MaterialAlertDialogBuilder(context)
                 .setView(R.layout.app_loader)
                 .setCancelable(false)
                 .setBackground(resources.getDrawable(R.color.white,null));
@@ -45,5 +46,9 @@ public class AppLoader {
 
     public void dismissLoader() {
         alertDialog.dismiss();
+    }
+
+    public MaterialAlertDialogBuilder getBuilder() {
+        return builder;
     }
 }

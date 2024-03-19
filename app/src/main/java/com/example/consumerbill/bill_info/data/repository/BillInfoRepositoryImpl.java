@@ -32,8 +32,8 @@ public class BillInfoRepositoryImpl implements IBillInfoRepository {
         billInfoDataScr.searchConsumer(volleySingleton, text, id, listener);
     }
 
-    //    @Override
-//    public CompletableFuture<ApiResult<ArrayList<ConsumerBill>>> searchConsumer(VolleySingleton volleySingleton, String text, String id) {
-//        return billInfoDataScr.searchConsumer(volleySingleton, text, id);
-//    }
+    @Override
+    public void updatePaymentStatus(VolleySingleton volleySingleton, String key, IAppItemListener<ApiResult<Void>> listener) {
+        billInfoDataScr.updatePaymentStatus(volleySingleton, key, listener);
+    }
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +36,8 @@ public class BillerAdapter extends RecyclerView.Adapter<BillerAdapter.BillerView
     @Override
     public void onBindViewHolder(@NonNull BillerViewHolder holder, int position) {
         Billers biller = list.get(position);
+        holder.ivBiller.setImageResource(biller.getBillerImage());
+        holder.tvBillerName.setText(biller.getBillerCompleteName());
         holder.view.setOnClickListener(v -> {
             listener.onSelectedBiller(biller);
         });
@@ -54,11 +57,13 @@ public class BillerAdapter extends RecyclerView.Adapter<BillerAdapter.BillerView
 
     public static class BillerViewHolder extends RecyclerView.ViewHolder {
         ImageView ivBiller;
+        TextView tvBillerName;
         View view;
         public BillerViewHolder(@NonNull View itemView) {
             super(itemView);
 
             ivBiller = itemView.findViewById(R.id.iv_biller);
+            tvBillerName = itemView.findViewById(R.id.tv_biller_complete_name);
             view = itemView;
         }
     }

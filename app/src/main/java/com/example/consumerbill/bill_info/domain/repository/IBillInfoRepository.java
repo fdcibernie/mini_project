@@ -12,4 +12,5 @@ import java.util.concurrent.Future;
 public interface IBillInfoRepository {
     //CompletableFuture<ApiResult<ArrayList<ConsumerBill>>> searchConsumer(VolleySingleton volleySingleton, String text, String id);
     void searchConsumer(VolleySingleton volleySingleton, String text, String id, IAppItemListener<ApiResult<ArrayList<ConsumerBill>>> listener);
+    void updatePaymentStatus(VolleySingleton volleySingleton,String key,IAppItemListener<ApiResult<Void>> listener);
 }

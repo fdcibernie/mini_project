@@ -8,8 +8,8 @@ public class ConsumerModel extends ConsumerBill {
                          double billAmount, double billPenalty,
                          String biller, String consumption, String contactNum,
                          String dueDate, String name, String paymentStatus,
-                         String presentReading, String preReading)
+                         String presentReading, String preReading,String keys)
     {
-        super(accountNo, address, billAmount, billPenalty, biller, consumption, contactNum, dueDate, name, paymentStatus, presentReading, preReading);
+        super(accountNo, address, billAmount, billPenalty, biller, consumption, contactNum, dueDate, name, paymentStatus, presentReading, preReading,keys);
     }
 }

@@ -29,6 +29,17 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <TextView
+        android:id="@+id/tv_biller_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:fontFamily="@font/lato"
+        />
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -30,6 +31,7 @@ import com.example.consumerbill.R;
 import com.example.consumerbill.bill_info.domain.model.ConsumerBill;
 import com.example.consumerbill.bill_info.domain.usecase.NumberFormat;
 import com.example.consumerbill.cores.payment_util.PaymentsUtil;
+import com.example.consumerbill.cores.views.AppLoader;
 import com.example.consumerbill.databinding.FragmentBillInfoBinding;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -62,7 +64,7 @@ public class BillInfoFragment extends Fragment {
     private FragmentBillInfoBinding layout;
     private NumberFormat numberFormat;
     private PayButton payButton;
-    private Button btnClose;
+    private AppCompatButton btnClose;
     private CheckOutViewModel checkOutViewModel;
     private AlertDialog alertDialog;
 
@@ -139,17 +141,29 @@ public class BillInfoFragment extends Fragment {
         numberFormat = NumberFormat.getInstance();
 
         payButton.setOnClickListener(this::requestPayment);
+        btnClose.setVisibility(View.GONE);
     }
 
 
     private void createDialog(){
-        @SuppressLint("UseCompatLoadingForDrawables")
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity())
-                .setView(R.layout.app_loader)
-                .setCancelable(false)
-                .setBackground(getResources().getDrawable(R.color.white,null));
+//        @SuppressLint("UseCompatLoadingForDrawables")
+//        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity())
+//                .setView(R.layout.app_loader)
+//                .setCancelable(false)
+//                .setBackground(getResources().getDrawable(R.color.white,null));
+//
+//        alertDialog = builder.create();
+        AppLoader appLoader = new AppLoader(requireActivity(),getResources());
+        alertDialog = appLoader.getBuilder().create();
+    }
 
-        alertDialog = builder.create();
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if(alertDialog.isShowing()) {
+            alertDialog.dismiss();
+        }
+        Log.e("BillInfoFragment","detached");
     }
 
     private void bindUIData() {
@@ -163,6 +177,8 @@ public class BillInfoFragment extends Fragment {
         layout.tvDueDate.setText(billInfo.getDueDate());
         layout.tvPenalty.setText(String.valueOf(billInfo.getBillPenalty()));
         layout.tvTotalAmount.setText(String.valueOf(formattedTotalAmount));
+
+        Log.e("BillInfo","billKey: "+ billInfo.getKeys());
     }
     private void popFragment() {
         layout.toolbar.setNavigationOnClickListener(v->{
@@ -227,14 +243,19 @@ public class BillInfoFragment extends Fragment {
                 }
             }
 
-            // Re-enables the Google Pay payment button.
-            payButton.setClickable(true);
             alertDialog.dismiss();
+            btnClose.setVisibility(View.VISIBLE);
         });
     }
     private void handleError(int statusCode, @Nullable String message) {
-        Log.e("loadPaymentData failed",
-                String.format(Locale.getDefault(), "Error code: %d, Message: %s", statusCode, message));
+
+        String errorMessage = String.format(Locale.getDefault(), "Error code: %d, Message: %s", statusCode, message);
+        Log.e("loadPaymentData failed", errorMessage);
+        // Re-enables the Google Pay payment button.
+        payButton.setClickable(true);
+        Toast.makeText(
+                requireActivity(), errorMessage,
+                Toast.LENGTH_LONG).show();
     }
     private void handlePaymentSuccess(PaymentData paymentData) {
         final String paymentInfo = paymentData.toJson();
@@ -243,20 +264,23 @@ public class BillInfoFragment extends Fragment {
             JSONObject paymentMethodData = new JSONObject(paymentInfo).getJSONObject("paymentMethodData");
             // If the gateway is set to "example", no payment information is returned - instead, the
             // token will only consist of "examplePaymentMethodToken".
-
+            Log.e("GooglePaytoken", "paymentMethodData:"+paymentMethodData);
             final JSONObject info = paymentMethodData.getJSONObject("info");
             final String billingName = info.getJSONObject("billingAddress").getString("name");
             Toast.makeText(
                     requireActivity(), getString(R.string.payments_show_name, billingName),
                     Toast.LENGTH_LONG).show();
-
-            // Logging token string.
-            Log.d("Google Pay token", paymentMethodData
+            payButton.setEnabled(false);
+            Log.e("GooglePaytoken", paymentMethodData
                     .getJSONObject("tokenizationData")
                     .getString("token"));
 
-            //startActivity(new Intent(this, CheckoutSuccessActivity.class));
-
+            //paymentMethodData:{"description":"Visa •••• 4323","info":
+            // {"billingAddress":{"address1":"Pooc Talisay","address2":"","address3":"",
+            // "administrativeArea":"Cebu","countryCode":"PH","locality":"Talisay",
+            // "name":"Bernie B. Tuwain","postalCode":"6045","sortingCode":""},
+            // "cardDetails":"4323","cardNetwork":"VISA"},
+            // "tokenizationData":{"token":"examplePaymentMethodToken","type":"PAYMENT_GATEWAY"},"type":"CARD"}
         } catch (JSONException e) {
             Log.e("handlePaymentSuccess", "Error: " + e);
         }
@@ -266,5 +290,8 @@ public class BillInfoFragment extends Fragment {
         btnClose.setOnClickListener(v -> {
             popFragment();
         });
+    }
+    private void updateBillStatus() {
+
     }
 }

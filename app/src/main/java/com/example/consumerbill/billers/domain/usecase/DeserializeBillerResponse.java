@@ -1,6 +1,7 @@
 package com.example.consumerbill.billers.domain.usecase;
 import android.util.Log;
 
+import com.example.consumerbill.R;
 import com.example.consumerbill.bill_info.domain.model.ConsumerBill;
 import com.example.consumerbill.billers.domain.model.Billers;
 import com.example.consumerbill.cores.ApiResult;
@@ -37,12 +38,14 @@ public class DeserializeBillerResponse extends HelperClass<Billers> {
         while (iterator.hasNext()) {
             try {
                 JSONObject jsonObject = data.getJSONObject(iterator.next());
+                String billerCode = jsonObject.getString("biller_code");
                 Billers billers = new Billers(
-                        jsonObject.getString("biller_code"),
+                        billerCode,
                         jsonObject.getString("biller_complete_name"),
                         jsonObject.getString("biller_name"),
                         jsonObject.getString("biller_status"),
-                        jsonObject.getString("biller_type")
+                        jsonObject.getString("biller_type"),
+                        getImageFromDrawable(billerCode)
                 );
                 listBiller.add(billers);
             } catch (JSONException e) {
@@ -51,5 +54,36 @@ public class DeserializeBillerResponse extends HelperClass<Billers> {
         }
 
         return listBiller;
+    }
+
+    private int getImageFromDrawable(String code) {
+        switch (code) {
+            case "RISE":
+                return R.drawable.rise;
+            case "CNV":
+                return R.drawable.cnv;
+            case "GLB":
+                return R.drawable.glb;
+            case "PLDT":
+                return R.drawable.pldt;
+            case "MNWD":
+                return R.drawable.mnwd;
+            case "CCWD":
+                return R.drawable.ccwd;
+            case "ISAWAD":
+                return R.drawable.isawad;
+            case "MCWD":
+                return R.drawable.mcwd;
+            case "CB2":
+                return R.drawable.cb2;
+            case "NRC2":
+                return R.drawable.nrc2;
+            case "CB1":
+                return R.drawable.cb1;
+            case "VECO":
+                return R.drawable.veco;
+            default:
+                return R.drawable.layout_bg_color;
+        }
     }
 }

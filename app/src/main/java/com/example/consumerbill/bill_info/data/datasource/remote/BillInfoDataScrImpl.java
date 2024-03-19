@@ -2,6 +2,10 @@ package com.example.consumerbill.bill_info.data.datasource.remote;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.consumerbill.bill_info.domain.model.ConsumerBill;
@@ -12,6 +16,8 @@ import com.example.consumerbill.cores.interfaces.IAppItemListener;
 import com.example.consumerbill.cores.volley.VolleySingleton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
@@ -33,34 +39,12 @@ public class BillInfoDataScrImpl implements IBillInfoDataSrc{
         return instance;
     }
 
-//    @Override
-//    public CompletableFuture<ArrayList<ConsumerBill>> fetchConsumers(VolleySingleton volleySingleton, String id) {
-//        String url = ConstRef.FIREBASE_DOMAIN+"/consumer/"+id+".json";
-//        CompletableFuture<ArrayList<ConsumerBill>> completableFuture = new CompletableFuture<>();
-//        DeserializeConsumerBill deserializeConsumerBill = DeserializeConsumerBill.getInstance();
-//        Executors.newCachedThreadPool().submit(()->{
-//            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url, null, jsonObject -> {
-//                ArrayList<ConsumerBill> list = deserializeConsumerBill.deserializeJsonObjectType(jsonObject);
-//                Log.e("BillInfo","filteredList2:"+ list);
-//                completableFuture.complete(list);
-//            }, volleyError -> {
-//                completableFuture.complete(null);
-//            });
-//
-//            volleySingleton.addToRequestQueue(jsonObjectRequest);
-//        });
-//
-//        return completableFuture;
-//    }
-
-
     @Override
     public void searchConsumer(VolleySingleton volleySingleton, String text, String id, IAppItemListener<ApiResult<ArrayList<ConsumerBill>>> listener) {
         String url = ConstRef.FIREBASE_DOMAIN+"/consumer/"+id+".json";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url, null, jsonObject -> {
             DeserializeConsumerBill deserializeConsumerBill = DeserializeConsumerBill.getInstance();
             ArrayList<ConsumerBill> list = deserializeConsumerBill.deserializeJsonObjectType(jsonObject);
-            Log.e("BillInfo","filteredList2:"+ list);
             listener.onAppItemSelected(new ApiResult<>(list, ResponseStatus.SUCCESS, ""));
         }, volleyError -> {
             listener.onAppItemSelected(new ApiResult<>(null, ResponseStatus.ERROR, volleyError.getMessage()));
@@ -69,24 +53,23 @@ public class BillInfoDataScrImpl implements IBillInfoDataSrc{
         volleySingleton.addToRequestQueue(jsonObjectRequest);
     }
 
-//    @Override
-//    public CompletableFuture<ApiResult<ArrayList<ConsumerBill>>> searchConsumer(VolleySingleton volleySingleton, String text, String id) {
-//
-//        String url = ConstRef.FIREBASE_DOMAIN+"/consumer/"+id+".json";
-//        CompletableFuture<ApiResult<ArrayList<ConsumerBill>>> completableFuture = new CompletableFuture<>();
-//        DeserializeConsumerBill deserializeConsumerBill = DeserializeConsumerBill.getInstance();
-//        Executors.newCachedThreadPool().submit(()->{
-//            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url, null, jsonObject -> {
-//                ArrayList<ConsumerBill> list = deserializeConsumerBill.deserializeJsonObjectType(jsonObject);
-//                Log.e("BillInfo","filteredList2:"+ list);
-//                completableFuture.complete(new ApiResult<>(list, ResponseStatus.SUCCESS, ""));
-//            }, volleyError -> {
-//                completableFuture.complete(new ApiResult<>(null, ResponseStatus.ERROR, volleyError.getMessage()));
-//            });
-//
-//            volleySingleton.addToRequestQueue(jsonObjectRequest);
-//        });
-//
-//        return completableFuture;
-//    }
+    @Override
+    public void updatePaymentStatus(VolleySingleton volleySingleton, String key, IAppItemListener<ApiResult<Void>> listener) {
+        String url = ConstRef.FIREBASE_DOMAIN+"/consumer/"+key+".json";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PATCH,url, null, jsonObject -> {
+            listener.onAppItemSelected(new ApiResult<>(null, ResponseStatus.SUCCESS, ""));
+        }, volleyError -> {
+            listener.onAppItemSelected(new ApiResult<>(null, ResponseStatus.ERROR, volleyError.getMessage()));
+        }){
+            @NonNull
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("payment_status", "paid");
+                return params;
+            }
+        };
+
+        volleySingleton.addToRequestQueue(jsonObjectRequest);
+    }
 }

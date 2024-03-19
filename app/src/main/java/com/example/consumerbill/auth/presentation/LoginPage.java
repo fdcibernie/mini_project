@@ -67,7 +67,7 @@ public class LoginPage extends AppCompatActivity implements ITextValidation {
         validatePassword = ValidatePassword.getInstance(this);
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
         firebaseAuth = FirebaseAuth.getInstance();
-        appLoader = AppLoader.getInstance(this,getResources());
+        appLoader = new AppLoader(this,getResources());
         mySharedPreferences = MySharedPreferences.getInstance(this);
 
         //Events

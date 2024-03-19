@@ -18,8 +18,13 @@ public class ConsumerBill implements Parcelable {
     private String paymentStatus;
     private String presentReading;
     private String preReading;
+    private String keys;
 
-    public ConsumerBill(String accountNo, String address, double billAmount, double billPenalty, String biller, String consumption, String contactNum, String dueDate, String name, String paymentStatus, String presentReading, String preReading) {
+    public ConsumerBill(String accountNo, String address, double billAmount,
+                        double billPenalty, String biller, String consumption,
+                        String contactNum, String dueDate, String name,
+                        String paymentStatus, String presentReading, String preReading,
+                        String keys) {
         this.accountNo = accountNo;
         this.address = address;
         this.billAmount = billAmount;
@@ -32,6 +37,7 @@ public class ConsumerBill implements Parcelable {
         this.paymentStatus = paymentStatus;
         this.presentReading = presentReading;
         this.preReading = preReading;
+        this.keys = keys;
     }
 
     protected ConsumerBill(Parcel in) {
@@ -47,6 +53,7 @@ public class ConsumerBill implements Parcelable {
         paymentStatus = in.readString();
         presentReading = in.readString();
         preReading = in.readString();
+        keys = in.readString();
     }
 
     public static final Creator<ConsumerBill> CREATOR = new Creator<ConsumerBill>() {
@@ -109,6 +116,10 @@ public class ConsumerBill implements Parcelable {
         return preReading;
     }
 
+    public String getKeys() {
+        return keys;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -128,5 +139,6 @@ public class ConsumerBill implements Parcelable {
         dest.writeString(paymentStatus);
         dest.writeString(presentReading);
         dest.writeString(preReading);
+        dest.writeString(keys);
     }
 }
