@@ -54,7 +54,7 @@ public class AuthRemoteSrcImpl implements  IAuthRemoteSrc{
                         observer.onCompleteTask(new ApiResult<>(null, ResponseStatus.ERROR, "Please check your email to verify your account using the link."));
                     }
                 } else {
-                    observer.onCompleteTask(new ApiResult<>(null, ResponseStatus.ERROR, "Failed to register, please try again"));
+                    observer.onCompleteTask(new ApiResult<>(null, ResponseStatus.ERROR, "Failed to sign in, please try again"));
                 }
             });
         } catch (Exception e) {

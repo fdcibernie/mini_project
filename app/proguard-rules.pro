@@ -19,3 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class com.example.consumerbill.bill_info.data.datasource.model.ConsumerModel {*;}
+-keep class com.example.consumerbill.bill_info.domain.model.ConsumerBill {*;}
+-keep class com.example.consumerbill.billers.data.datasource.remote.model.BillerModel {*;}
+-keep class com.example.consumerbill.billers.domain.model.Billers {*;}

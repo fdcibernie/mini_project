@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "ConsumerBill"
 include ':app'
+include ':app:gpay_payment'

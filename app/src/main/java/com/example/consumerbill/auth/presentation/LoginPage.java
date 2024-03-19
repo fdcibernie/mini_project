@@ -31,6 +31,7 @@ import com.example.consumerbill.cores.interfaces.ITextValidation;
 import com.example.consumerbill.cores.views.AppLoader;
 import com.example.consumerbill.databinding.ActivityLoginPageBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginPage extends AppCompatActivity implements ITextValidation {

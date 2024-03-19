@@ -15,4 +15,7 @@ public class HelperClass<T> {
     public ArrayList<T> deserializeJsonObjectType(JSONObject data){
         return null;
     }
+    public String formatDecimal(String numberStr) {
+        return null;
+    }
 }

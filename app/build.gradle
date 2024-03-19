@@ -5,6 +5,14 @@ plugins {
 
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Users/fdc-bernie-nc-android/Documents/androidproject/jks/fdci_android.jks')
+            storePassword 'Passfdci'
+            keyPassword 'Passfdci'
+            keyAlias 'fdci_app'
+        }
+    }
     namespace 'com.example.consumerbill'
     compileSdk 34
 
@@ -20,8 +28,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -47,6 +56,9 @@ dependencies {
     implementation libs.firebase.auth
     implementation libs.android.gif
     implementation libs.volley
+
+    implementation libs.google.pay
+
 
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
