@@ -6,4 +6,7 @@
     </style>
 
     <style name="Theme.ConsumerBill" parent="Base.Theme.ConsumerBill" />
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/white</item>
+    </style>
 </resources>

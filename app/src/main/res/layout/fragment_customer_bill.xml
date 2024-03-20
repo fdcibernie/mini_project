@@ -9,14 +9,6 @@
     tools:context=".bill_info.presentation.CustomerBillFragment"
     >
 
-<!--    <TextView-->
-<!--        android:id="@+id/tv_header"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?actionBarSize"-->
-<!--        android:background="@drawable/layout_main_bg_color"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +17,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/layout_main_bg_color" />
+            app:titleTextColor="@color/white"
+            android:background="@drawable/layout_main_bg_color"
+            android:theme="@style/ToolbarTheme"
+            />
 
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -121,7 +121,7 @@ public class BillersFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         adapter.setUpAdapter(list, biller -> {
-            goToCustomerBill(biller.getBillerCode(), biller.getBillerName());
+            goToCustomerBill(biller.getBillerCode(), biller.getBillerCompleteName());
         });
     }
 

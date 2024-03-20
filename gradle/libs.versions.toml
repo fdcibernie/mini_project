@@ -31,6 +31,8 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version
 android-gif = { group = "pl.droidsonroids.gif", name = "android-gif-drawable",version.ref = "androidGif"}
 volley = { group = "com.android.volley", name = "volley", version.ref = "volleyVersion"}
 google-pay = { group = "com.google.android.gms", name = "play-services-wallet", version.ref = "googlePayVersion"}
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics"}
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

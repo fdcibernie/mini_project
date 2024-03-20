@@ -174,8 +174,6 @@ public class BillInfoFragment extends Fragment {
         layout.tvDueDate.setText(billInfo.getDueDate());
         layout.tvPenalty.setText(String.valueOf(billInfo.getBillPenalty()));
         layout.tvTotalAmount.setText(String.valueOf(formattedTotalAmount));
-
-        Log.e("BillInfo","billKey: "+ billInfo.getKeys());
     }
     private void popFragment() {
         layout.toolbar.setNavigationOnClickListener(v->{
