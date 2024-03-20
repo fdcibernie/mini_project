@@ -21,8 +21,7 @@
             android:id="@+id/toolbar"
             app:titleTextColor="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/layout_main_bg_color"
+            android:layout_height="match_parent"
             android:theme="@style/ToolbarTheme"
             />
 

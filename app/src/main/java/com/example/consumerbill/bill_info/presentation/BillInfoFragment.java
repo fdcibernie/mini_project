@@ -146,8 +146,9 @@ public class BillInfoFragment extends Fragment {
 
         payButton.setOnClickListener(this::requestPayment);
         btnClose.setVisibility(View.GONE);
+        layout.toolbar.setNavigationOnClickListener(this::popFragment);
+        btnClose.setOnClickListener(this::popFragment);
     }
-
 
     private void createDialog(){
         AppLoader appLoader = new AppLoader(requireActivity(),getResources());
@@ -175,20 +176,18 @@ public class BillInfoFragment extends Fragment {
         layout.tvPenalty.setText(String.valueOf(billInfo.getBillPenalty()));
         layout.tvTotalAmount.setText(String.valueOf(formattedTotalAmount));
     }
-    private void popFragment() {
-        layout.toolbar.setNavigationOnClickListener(v->{
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                            R.anim.slide_in,  // enter
-                            R.anim.fade_out,  // exit
-                            R.anim.fade_in,   // popEnter
-                            R.anim.slide_out  // popExit
-                    )
-                    .remove(new BillInfoFragment())
-                    .commit();
-            fragmentManager.popBackStack();
-        });
+    private void popFragment(View view) {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,   // popEnter
+                        R.anim.slide_out  // popExit
+                )
+                .remove(new BillInfoFragment())
+                .commit();
+        fragmentManager.popBackStack();
     }
 
     private void setUpPaymentButton() {
@@ -282,11 +281,6 @@ public class BillInfoFragment extends Fragment {
         }
     }
 
-    private void closeThisPage() {
-        btnClose.setOnClickListener(v -> {
-            popFragment();
-        });
-    }
     private void updateBillStatus() {
         checkOutViewModel.updatePaymentStatus(volleySingleton,billerCode,billInfo.getKeys());
     }
