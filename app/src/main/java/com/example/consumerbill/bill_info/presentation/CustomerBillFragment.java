@@ -1,5 +1,6 @@
 package com.example.consumerbill.bill_info.presentation;
 
+import static com.example.consumerbill.bill_info.presentation.BillInfoFragment.ARG_BILLER_CODE;
 import static com.example.consumerbill.bill_info.presentation.BillInfoFragment.ARG_CONSUMER_BILL;
 
 import android.annotation.SuppressLint;
@@ -111,12 +112,6 @@ public class CustomerBillFragment extends Fragment {
 
     private void createDialog(){
         @SuppressLint("UseCompatLoadingForDrawables")
-//        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity())
-//                .setView(R.layout.app_loader)
-//                .setCancelable(false)
-//                .setBackground(getResources().getDrawable(R.color.white,null));
-//
-//        alertDialog = builder.create();
         AppLoader appLoader = new AppLoader(requireActivity(),getResources());
         alertDialog = appLoader.getBuilder().create();
     }
@@ -160,6 +155,7 @@ public class CustomerBillFragment extends Fragment {
         adapter.setUpAdapter(list, data -> {
             Bundle bundle = new Bundle();
             bundle.putParcelable(ARG_CONSUMER_BILL,data);
+            bundle.putString(ARG_BILLER_CODE,billerId);
             FragmentManager manager = requireActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = manager.beginTransaction()
                     .setCustomAnimations(

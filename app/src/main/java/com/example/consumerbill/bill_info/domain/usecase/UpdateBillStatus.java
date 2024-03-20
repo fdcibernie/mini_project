@@ -20,7 +20,7 @@ public class UpdateBillStatus {
         return instance;
     }
 
-    public void updatePaymentStatus(VolleySingleton volleySingleton, String key, IAppItemListener<ApiResult<Void>> listener) {
-        billInfoRepository.updatePaymentStatus(volleySingleton, key, listener);
+    public void updatePaymentStatus(VolleySingleton volleySingleton,String biller, String key, IAppItemListener<ApiResult<Void>> listener) {
+        billInfoRepository.updatePaymentStatus(volleySingleton,biller, key, listener);
     }
 }

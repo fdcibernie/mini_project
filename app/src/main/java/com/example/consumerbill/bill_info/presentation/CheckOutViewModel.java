@@ -78,7 +78,7 @@ public class CheckOutViewModel extends AndroidViewModel {
         return paymentsClient.loadPaymentData(request);
     }
 
-    public void updatePaymentStatus(VolleySingleton volleySingleton, String key) {
-        updateBillStatusUseCase.updatePaymentStatus(volleySingleton, key, _updateBillStatus::setValue);
+    public void updatePaymentStatus(VolleySingleton volleySingleton,String biller, String key) {
+        updateBillStatusUseCase.updatePaymentStatus(volleySingleton,biller, key, _updateBillStatus::setValue);
     }
 }

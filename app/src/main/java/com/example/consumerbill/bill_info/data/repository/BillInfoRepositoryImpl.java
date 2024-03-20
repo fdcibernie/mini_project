@@ -33,7 +33,7 @@ public class BillInfoRepositoryImpl implements IBillInfoRepository {
     }
 
     @Override
-    public void updatePaymentStatus(VolleySingleton volleySingleton, String key, IAppItemListener<ApiResult<Void>> listener) {
-        billInfoDataScr.updatePaymentStatus(volleySingleton, key, listener);
+    public void updatePaymentStatus(VolleySingleton volleySingleton,String biller, String key, IAppItemListener<ApiResult<Void>> listener) {
+        billInfoDataScr.updatePaymentStatus(volleySingleton,biller, key, listener);
     }
 }

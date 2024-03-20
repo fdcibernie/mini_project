@@ -6,6 +6,7 @@ import com.example.consumerbill.bill_info.data.datasource.model.ConsumerModel;
 import com.example.consumerbill.bill_info.domain.model.ConsumerBill;
 import com.example.consumerbill.billers.domain.model.Billers;
 import com.example.consumerbill.billers.domain.usecase.DeserializeBillerResponse;
+import com.example.consumerbill.cores.ConstRef;
 import com.example.consumerbill.cores.HelperClass;
 
 import org.json.JSONException;
@@ -16,6 +17,7 @@ import java.util.Iterator;
 
 public class DeserializeConsumerBill extends HelperClass<ConsumerBill> {
     private static DeserializeConsumerBill instance = null;
+
     public static synchronized DeserializeConsumerBill getInstance() {
         if(instance == null) {
             instance = new DeserializeConsumerBill();
@@ -37,22 +39,26 @@ public class DeserializeConsumerBill extends HelperClass<ConsumerBill> {
             try {
                 String keys = iterator.next();
                 JSONObject jsonObject = data.getJSONObject(keys);
-                ConsumerBill consumerBill = new ConsumerModel(
-                        jsonObject.getString("account_no"),
-                        jsonObject.getString("address"),
-                        jsonObject.getDouble("bill_amount"),
-                        jsonObject.getDouble("bill_penalty"),
-                        jsonObject.getString("biller"),
-                        jsonObject.optString("consumption","0"),
-                        jsonObject.getString("contact_num"),
-                        jsonObject.getString("due_date"),
-                        jsonObject.getString("name"),
-                        jsonObject.optString("payment_status","0"),
-                        jsonObject.optString("present_reading","0"),
-                        jsonObject.optString("prev_reading","0"),
-                        keys
-                );
-                listBiller.add(consumerBill);
+                String paymentStatus = jsonObject.optString("payment_status","");
+                String STATUS_PAYMENT = "paid";
+                if(!paymentStatus.trim().equalsIgnoreCase(STATUS_PAYMENT)) {
+                    ConsumerBill consumerBill = new ConsumerModel(
+                            jsonObject.getString("account_no"),
+                            jsonObject.getString("address"),
+                            jsonObject.getDouble("bill_amount"),
+                            jsonObject.getDouble("bill_penalty"),
+                            jsonObject.getString("biller"),
+                            jsonObject.optString("consumption","0"),
+                            jsonObject.getString("contact_num"),
+                            jsonObject.getString("due_date"),
+                            jsonObject.getString("name"),
+                            jsonObject.optString("payment_status","0"),
+                            jsonObject.optString("present_reading","0"),
+                            jsonObject.optString("prev_reading","0"),
+                            keys
+                    );
+                    listBiller.add(consumerBill);
+                }
             } catch (JSONException e) {
                 Log.e("Here","Exception Json:"+e.getMessage());
             }

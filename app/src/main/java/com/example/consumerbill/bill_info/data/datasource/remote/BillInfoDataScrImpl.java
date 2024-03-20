@@ -15,6 +15,9 @@ import com.example.consumerbill.cores.ResponseStatus;
 import com.example.consumerbill.cores.interfaces.IAppItemListener;
 import com.example.consumerbill.cores.volley.VolleySingleton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,21 +57,19 @@ public class BillInfoDataScrImpl implements IBillInfoDataSrc{
     }
 
     @Override
-    public void updatePaymentStatus(VolleySingleton volleySingleton, String key, IAppItemListener<ApiResult<Void>> listener) {
-        String url = ConstRef.FIREBASE_DOMAIN+"/consumer/"+key+".json";
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PATCH,url, null, jsonObject -> {
+    public void updatePaymentStatus(VolleySingleton volleySingleton,String biller, String key, IAppItemListener<ApiResult<Void>> listener) {
+        String url = ConstRef.FIREBASE_DOMAIN+"/consumer/"+biller+"/"+key+".json";
+        JSONObject param = new JSONObject();
+        try {
+            param.put("payment_status", "paid");
+        } catch (JSONException e) {
+            Log.e("BillUpdate","JSONException:"+e.getMessage());
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PATCH,url, param, jsonObject -> {
             listener.onAppItemSelected(new ApiResult<>(null, ResponseStatus.SUCCESS, ""));
         }, volleyError -> {
             listener.onAppItemSelected(new ApiResult<>(null, ResponseStatus.ERROR, volleyError.getMessage()));
-        }){
-            @NonNull
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("payment_status", "paid");
-                return params;
-            }
-        };
+        });
 
         volleySingleton.addToRequestQueue(jsonObjectRequest);
     }

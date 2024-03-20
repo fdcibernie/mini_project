@@ -32,6 +32,7 @@ import com.example.consumerbill.bill_info.domain.model.ConsumerBill;
 import com.example.consumerbill.bill_info.domain.usecase.NumberFormat;
 import com.example.consumerbill.cores.payment_util.PaymentsUtil;
 import com.example.consumerbill.cores.views.AppLoader;
+import com.example.consumerbill.cores.views.MessageDialog;
 import com.example.consumerbill.cores.volley.VolleySingleton;
 import com.example.consumerbill.databinding.FragmentBillInfoBinding;
 import com.google.android.gms.common.api.ApiException;
@@ -58,9 +59,9 @@ import java.util.Objects;
 public class BillInfoFragment extends Fragment {
 
     public static final String ARG_CONSUMER_BILL = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    public static final String ARG_BILLER_CODE = "param2";
     private ConsumerBill billInfo;
-    private String billerInfo;
+    private String billerCode;
 
     private FragmentBillInfoBinding layout;
     private NumberFormat numberFormat;
@@ -97,7 +98,7 @@ public class BillInfoFragment extends Fragment {
         BillInfoFragment fragment = new BillInfoFragment();
         Bundle args = new Bundle();
         args.putString(ARG_CONSUMER_BILL, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_BILLER_CODE, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -107,7 +108,7 @@ public class BillInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             billInfo = getArguments().getParcelable(ARG_CONSUMER_BILL);
-            billerInfo = getArguments().getString(ARG_PARAM2);
+            billerCode = getArguments().getString(ARG_BILLER_CODE);
         }
     }
 
@@ -149,13 +150,6 @@ public class BillInfoFragment extends Fragment {
 
 
     private void createDialog(){
-//        @SuppressLint("UseCompatLoadingForDrawables")
-//        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity())
-//                .setView(R.layout.app_loader)
-//                .setCancelable(false)
-//                .setBackground(getResources().getDrawable(R.color.white,null));
-//
-//        alertDialog = builder.create();
         AppLoader appLoader = new AppLoader(requireActivity(),getResources());
         alertDialog = appLoader.getBuilder().create();
     }
@@ -256,9 +250,11 @@ public class BillInfoFragment extends Fragment {
         Log.e("loadPaymentData failed", errorMessage);
         // Re-enables the Google Pay payment button.
         payButton.setClickable(true);
-        Toast.makeText(
-                requireActivity(), errorMessage,
-                Toast.LENGTH_LONG).show();
+//        Toast.makeText(
+//                requireActivity(), errorMessage,
+//                Toast.LENGTH_LONG).show();
+
+        showMessage(errorMessage,"Failed");
     }
     private void handlePaymentSuccess(PaymentData paymentData) {
         final String paymentInfo = paymentData.toJson();
@@ -267,17 +263,15 @@ public class BillInfoFragment extends Fragment {
             JSONObject paymentMethodData = new JSONObject(paymentInfo).getJSONObject("paymentMethodData");
             // If the gateway is set to "example", no payment information is returned - instead, the
             // token will only consist of "examplePaymentMethodToken".
-            Log.e("GooglePaytoken", "paymentMethodData:"+paymentMethodData);
+            //Log.e("GooglePaytoken", "paymentMethodData:"+paymentMethodData);
             final JSONObject info = paymentMethodData.getJSONObject("info");
             final String billingName = info.getJSONObject("billingAddress").getString("name");
-            Toast.makeText(
-                    requireActivity(), getString(R.string.payments_show_name, billingName),
-                    Toast.LENGTH_LONG).show();
             payButton.setEnabled(false);
-            Log.e("GooglePaytoken", paymentMethodData
-                    .getJSONObject("tokenizationData")
-                    .getString("token"));
+//            Log.e("GooglePaytoken", paymentMethodData
+//                    .getJSONObject("tokenizationData")
+//                    .getString("token"));
             updateBillStatus();
+            showMessage(getString(R.string.payments_show_name, billingName),"Payment");
 
             //paymentMethodData:{"description":"Visa •••• 4323","info":
             // {"billingAddress":{"address1":"Pooc Talisay","address2":"","address3":"",
@@ -296,6 +290,16 @@ public class BillInfoFragment extends Fragment {
         });
     }
     private void updateBillStatus() {
-        checkOutViewModel.updatePaymentStatus(volleySingleton,billInfo.getKeys());
+        checkOutViewModel.updatePaymentStatus(volleySingleton,billerCode,billInfo.getKeys());
+    }
+
+    private void showMessage(String message,String title) {
+        MessageDialog messageDialog = new MessageDialog(requireActivity(),message,title);
+        messageDialog.getBuilder()
+                .setPositiveButton("OK",(v,w) -> {
+                   v.dismiss();
+                });
+        AlertDialog alertDialog = messageDialog.getBuilder().create();
+        alertDialog.show();
     }
 }
