@@ -125,11 +125,9 @@ public class BillInfoFragment extends Fragment {
         layout = FragmentBillInfoBinding.bind(view);
         initializeMembers();
         bindUIData();
-        popFragment();
         setUpPaymentButton();
         observeCanUseGooglePay();
         createDialog();
-        closeThisPage();
     }
     private void initializeMembers() {
 
