@@ -20,9 +20,14 @@ jobs:
       - name : Build with Gradle
         run: ./gradlew build
 
-      - name : Upload a Build Artifact
-        uses: actions/upload-artifact@v4.3.1
-        with: 
-          name: MiniProject.apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+      - name: GitHub Action for Android Lint
+        uses: yutailang0119/action-android-lint@v3.1.0
+        with:
+            report-path: 'build/reports/lint_report.html'
+
+      # - name : Upload a Build Artifact
+      #   uses: actions/upload-artifact@v4.3.1
+      #   with: 
+      #     name: MiniProject.apk
+      #     path: app/build/outputs/apk/debug/app-debug.apk
           
