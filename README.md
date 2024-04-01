@@ -1,3 +1,3 @@
-# mini_project
-# mini_project
-# mini_project
+# ci/cd github actions
+  . https://www.youtube.com/watch?v=uBXzaaOHVzY
+
